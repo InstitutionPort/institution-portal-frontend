@@ -39,7 +39,10 @@ export default function RootLayout({
           {/* Children start below Navbar */}
           <div className="flex-1">{children}</div>
 
-          <SiteFooter />
+          <div className="z-50 bottom-0 w-full border-b bg-background">
+            <SiteFooter />
+          </div>
+
         </Providers>
       </body>
     </html>

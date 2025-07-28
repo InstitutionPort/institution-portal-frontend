@@ -3,13 +3,15 @@
 
 import { useEffect, useRef, useState } from "react"
 import { SettingsSidebar } from "@/app/settings/settings-sidebar"
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
+import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
 import { createContext } from "react"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 import { Menu } from "lucide-react"
 // import { navBarHeight } from "@/components/navbar/navbar"
 import { cn } from "@/utils/basic-utils"
 import { Button } from "@/components/ui/button"
+import { Separator } from "@/components/ui/separator"
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb"
 
 interface SettingsScrollSectionContextType {
   activeSection: string
@@ -18,14 +20,14 @@ interface SettingsScrollSectionContextType {
 }
 
 export const SettingsScrollSectionContext = createContext<SettingsScrollSectionContextType>({
-  activeSection: "personal",
+  activeSection: "Personal Information",
   scrollToSection: () => { },
   sectionRefs: { current: {} },
 })
 
 
 export default function SettingsLayout({ children }: { children: React.ReactNode }) {
-  const [activeSection, setActiveSection] = useState("personal")
+  const [activeSection, setActiveSection] = useState("Personal Information")
   const sectionRefs = useRef<{ [key: string]: HTMLElement | null }>({})
   // const sidebarTopMargin = `mt-${navBarHeight}`1
 
@@ -50,7 +52,7 @@ export default function SettingsLayout({ children }: { children: React.ReactNode
         // manually set the last section (good fallback for long bottom sections)
         else {
           const bottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 20
-          if (bottom) setActiveSection("activity_n_backup")
+          if (bottom) setActiveSection("Activity & Backup")
         }
       },
       {
@@ -65,30 +67,31 @@ export default function SettingsLayout({ children }: { children: React.ReactNode
 
   return <SidebarProvider>
     <SettingsScrollSectionContext.Provider value={{ activeSection, scrollToSection, sectionRefs }}>
-      <div className="flex w-full" >
-        {/* Sidebar (only desktop) */}
-        <SettingsSidebar activeSection={activeSection} onSectionClick={scrollToSection} />
-
-        {/* Main Content */}
-        <main className="flex-1">
-          {/* Sticky Header for Mobile */}
-          <div className="max-w-4xl mx-auto p-4 md:p-6 border-b flex items-center gap-4">
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <SidebarTrigger className="md:hidden">
-                  <Menu className="h-8 w-8" />
-                </SidebarTrigger>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>Menu</p>
-              </TooltipContent>
-            </Tooltip>
-            <h1 className="text-3xl font-bold text-center">Settings</h1>
+      <SettingsSidebar activeSection={activeSection} onSectionClick={scrollToSection} />
+      <SidebarInset>
+        <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
+          <div className="flex items-center gap-2">
+            <SidebarTrigger className="-ml-1" />
+            <Separator orientation="vertical" className="mr-2 h-4" />
+            <Breadcrumb>
+              <BreadcrumbList>
+                <BreadcrumbItem className="hidden md:block">
+                  <BreadcrumbLink href="/settings">Settings</BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator className="hidden md:block" />
+                <BreadcrumbItem>
+                  <BreadcrumbPage>{activeSection}</BreadcrumbPage>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
           </div>
-
-          {children}
-        </main>
-      </div>
+        </header>
+        <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
+          <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min">
+            <main className="p-6">{children}</main>
+          </div>
+        </div>
+      </SidebarInset>
     </SettingsScrollSectionContext.Provider>
   </SidebarProvider >
 }

@@ -78,6 +78,7 @@ export function ActivityTimeline({ username }: { username: string }) {
     return date.toLocaleDateString()
   }
 
+
   return (
     <TooltipProvider>
       <Card>
@@ -124,7 +125,7 @@ export function ActivityTimeline({ username }: { username: string }) {
                     </TooltipContent>
                   </Tooltip>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-gray-900">{activity.description}</p>
+                    <p className="text-sm font-medium`">{activity.description}</p>
                     {activity.metadata && (
                       <div className="mt-1 space-y-1">
                         {activity.metadata.fields && (

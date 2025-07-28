@@ -6,6 +6,14 @@ import { v4 as _uuidv4 } from "uuid";
 export async function middleware(req: NextRequest) {
   const accessToken = req.cookies.get('access-token')?.value;
   const refreshToken = req.cookies.get('refresh-token')?.value;
+  const { pathname } = req.nextUrl
+
+  // Redirect from /dashboard to /dashboard/institution
+  if (pathname === '/dashboard') {
+    const url = req.nextUrl.clone()
+    url.pathname = '/dashboard/institutions'
+    return NextResponse.redirect(url)
+  }
 
   try {
     if (!accessToken) throw new Error('Access Token Not Found');
