@@ -93,7 +93,7 @@ export default function CoursesPage() {
             </div>
 
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-              <TabsList className="grid w-full grid-cols-4">
+              <TabsList className="grid w-full border grid-cols-2 h-18 sm:h-9 sm:grid-cols-4 ">
                 <TabsTrigger value="all">All Courses</TabsTrigger>
                 <TabsTrigger value="ongoing">Ongoing</TabsTrigger>
                 <TabsTrigger value="completed">Completed</TabsTrigger>
@@ -122,51 +122,41 @@ export default function CoursesPage() {
                 ) : (
                   <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                     {filteredCourses.map((course) => (
-                      <Card key={course.id} className="transition-all hover:shadow-lg">
-                        <CardHeader className="pb-3 relative">
-                          <div className="space-y-2 ">
-                            <CardTitle className="text-lg line-clamp-2">{course.title}</CardTitle>
-                            <div className="flex items-center text-sm text-muted-foreground">
-                              <Building2 className="mr-2 h-4 w-4" />
-                              {course.institution}
-                            </div>
-                            {
-                              <FollowButton classNames={"absolute top-[-20px] right-[-10px] rounded-full "} idToFollow={course.id}
-                                isFollowing={course.isFollowing}
-                                queryKey={[route, userData?.data?.user]}
-                              />
-                            }
-                          </div>
-                        </CardHeader>
-                        <CardContent className="pt-0">
-                          <div className="space-y-3 rounded">
-                            <div className="flex items-center gap-2">
+                      <Card key={course.id} className="relative transition-all hover:shadow-lg">
+                        <Link href={course.link}>
+                          <CardHeader className="pb-3">
+                            <div className="space-y-2 ">
+                              <CardTitle className="text-lg line-clamp-2">{course.title}</CardTitle>
                               <div className="flex items-center text-sm text-muted-foreground">
-                                <Clock className="mr-2 h-4 w-4" />
-                                {course.duration}
+                                <Building2 className="mr-2 h-4 w-4" />
+                                {course.institution}
                               </div>
-                              <Badge variant={getStatusColor(course.status)}>{course.status}</Badge>
+
                             </div>
-                            <div className="flex items-center text-sm text-muted-foreground">
-                              <Calendar className="mr-2 h-4 w-4" />
-                              Started {new Date(course.startDate).toLocaleDateString()}
+                          </CardHeader>
+                          {
+                            <FollowButton classNames={"absolute bottom-2 right-2"} idToFollow={course.id}
+                              isFollowing={course.isFollowing}
+                              queryKey={[route, userData?.data?.user]}
+                            />
+                          }
+                          <CardContent className="pt-0">
+                            <div className="space-y-3 rounded">
+                              <div className="flex items-center gap-2">
+                                <div className="flex items-center text-sm text-muted-foreground">
+                                  <Clock className="mr-2 h-4 w-4" />
+                                  {course.duration}
+                                </div>
+                                <Badge variant={getStatusColor(course.status)}>{course.status}</Badge>
+                              </div>
+                              <div className="flex items-center text-sm text-muted-foreground">
+                                <Calendar className="mr-2 h-4 w-4" />
+                                Started {new Date(course.startDate).toLocaleDateString()}
+                              </div>
+
                             </div>
-                            <div className="flex gap-2">
-                              <Link href={course.link}>
-                                <ExternalLink className="mr-2 h-4 w-4" />
-                                <Button
-                                  className="flex-1"
-                                  variant={course.status === "Completed" ? "outline" : "default"}
-                                  size="sm"
-                                >
-                                  {course.status === "Completed"
-                                    ? "View Details"
-                                    : "Go to Course"}
-                                </Button>
-                              </Link>
-                            </div>
-                          </div>
-                        </CardContent>
+                          </CardContent>
+                        </Link>
                       </Card>
                     ))}
                   </div>
@@ -185,7 +175,8 @@ export default function CoursesPage() {
                 )}
               </TabsContent>
             </Tabs>
-          </>)}
-    </div>
+          </>)
+      }
+    </div >
   )
 }

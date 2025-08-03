@@ -6,65 +6,67 @@ import { genApiResponse } from "@/utils/gen-api-response"
 import { type NextRequest } from "next/server"
 
 // Mock complete user data - replace with actual database queries
-export interface Course {
+
+export interface Form {
   id: string
-  title: string
-  institution: string
-  isFollowing: boolean
-  isEnrolled: boolean
-  startDate: string
   link: string
-  duration: string
-  status: "Ongoing" | "Completed" | "Upcoming"
+  title: string
+  isFollowing: boolean
+  institution: string
+  course?: string
+  submissionDate: string
+  status: "Pending" | "Saved" | "Rejected" | "Approved"
 }
 
-const mockCourses: Course[] = [
+const mockforms: Form[] = [
   {
     id: "1",
-    title: "Advanced Machine Learning",
+    title: "Course Enrollment Application",
     institution: "Stanford University",
+    course: "Advanced Machine Learning",
+    link: "",
     isFollowing: false,
-    link: "/",
-    isEnrolled: true,
-    startDate: "2024-01-15",
-    duration: "12 weeks",
-    status: "Ongoing",
+    status: "Pending",
+    submissionDate: "2024-01-10",
   },
   {
     id: "2",
-    title: "Web Development Fundamentals",
+    title: "Financial Aid Request",
     institution: "MIT OpenCourseWare",
-    startDate: "2023-11-01",
+    submissionDate: "2024-01-15",
+    link: "",
     isFollowing: true,
-    link: "/",
-
-    isEnrolled: false,
-    duration: "8 weeks",
-    status: "Completed",
+    status: "Approved",
   },
   {
     id: "3",
-    title: "Data Structures & Algorithms",
+    title: "Transfer Credit Evaluation",
     institution: "Berkeley Online",
-    startDate: "2024-02-01",
-    link: "/",
-
-    duration: "10 weeks",
+    course: "Data Structures & Algorithms",
+    submissionDate: "2024-01-20",
+    link: "",
     isFollowing: false,
-    isEnrolled: true,
-    status: "Upcoming",
+    status: "Saved",
   },
   {
     id: "4",
-    title: "Digital Marketing Strategy",
+    title: "Grade Appeal Form",
     institution: "Harvard Extension",
-    startDate: "2024-01-08",
-    duration: "6 weeks",
-    link: "/",
-
+    course: "Digital Marketing Strategy",
+    submissionDate: "2024-01-05",
+    link: "",
+    isFollowing: false,
+    status: "Rejected",
+  },
+  {
+    id: "5",
+    title: "Course Withdrawal Request",
+    institution: "Stanford University",
+    course: "Advanced Machine Learning",
+    submissionDate: "2024-01-25",
+    link: "",
     isFollowing: true,
-    isEnrolled: true,
-    status: "Ongoing",
+    status: "Pending",
   },
 ]
 const ACCESS_SECRET = process.env.ACCESS_SECRET
@@ -83,14 +85,14 @@ export async function GET(request: NextRequest) {
     }
     return genApiResponse({
       code: "FETCHED",
-      message: "Successfully fetched user's courses data.",
-      data: { courses: mockCourses },
+      message: "Successfully fetched user's forms data.",
+      data: { forms: mockforms },
       status: 200,
     })
   } catch (err) {
     return genApiResponse({
       code: "FETCH_FAILED",
-      message: "Successfully fetched user's courses data.",
+      message: "Successfully fetched user's forms data.",
       status: 500,
     })
 
