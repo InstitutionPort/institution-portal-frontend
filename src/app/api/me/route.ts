@@ -23,8 +23,7 @@ export async function GET(req: NextRequest) {
     //otp token verification
     const accessTokenPayload = checkTokenIsValid(req, "access-token", ACCESS_SECRET!)
     const refreshTokenPayload = checkTokenIsValid(req, "refresh-token", REFRESH_SECRET!)
-    console.log(accessTokenPayload, refreshTokenPayload)
-    if (accessTokenPayload) return successfulAuth({ user: accessTokenPayload.user as any, id: accessTokenPayload.id })
+    if (accessTokenPayload) return successfulAuth({ user: accessTokenPayload.user as any, id:accessTokenPayload.id })
     if (refreshTokenPayload) {
       //get the user's unique immutable id
       const uuid = _uuidv4();

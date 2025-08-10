@@ -23,8 +23,8 @@ export function useLoginMutation() {
     key: ['api/login'],
     method: "POST",
     httpOnlyCookie: true,
-    errorFallbackMsg: 'Logout Failed.',
-    successFallbackMsg: "Logged out successfully.",
+    errorFallbackMsg: 'Login Failed.',
+    successFallbackMsg: "Logged in successfully.",
     onSuccessSideEffect: async () => {
       await queryClient.refetchQueries({ queryKey: ['me'], exact: true }); // refetches immediately
       router.push('/dashboard');
