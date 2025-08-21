@@ -2,8 +2,6 @@ import { useQueryClient } from "@tanstack/react-query"
 import { useMutationCustom } from "./use-muation-custom"
 import { useQueryCustom } from "./use-query-custom"
 import { passwordChangeSchemaType } from "../validation/settings-validation"
-import { useContext } from "react";
-import { SettingsScrollSectionContext } from "@/app/settings/layout";
 
 
 

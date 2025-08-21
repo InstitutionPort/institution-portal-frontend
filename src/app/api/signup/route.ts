@@ -1,4 +1,4 @@
-import { SignUpCredentials } from "@/lib/queries/use-signup";
+import { SignUpFormType } from "@/lib/validation/auth-validation";
 import { genToken } from "@/utils/authtoken";
 import { genApiResponse } from "@/utils/gen-api-response"
 import { v4 as _uuidv4 } from "uuid";
@@ -8,7 +8,7 @@ const ACCESS_SECRET = process.env.ACCESS_SECRET
 const REFRESH_SECRET = process.env.REFRESH_SECRET
 export async function POST(req: Request) {
   try {
-    const credentials: SignUpCredentials = await req.json();
+    const credentials: SignUpFormType = await req.json();
 
     // signup db work here (replace with DB entry)
     //generate the user's unique immutable id
