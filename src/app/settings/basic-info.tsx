@@ -41,8 +41,8 @@ export default function BasicInfo(props: { username: string }) {
 
     }
     ,
-    onErrorSideEffect: (err, vars, context) => {
-      form.setValue("avatarUrl", "")
+    onErrorSideEffect: (_err, _vars, _context) => {
+      form.setValue("avatarUrl", undefined)
     }
   })
 
@@ -58,7 +58,7 @@ export default function BasicInfo(props: { username: string }) {
       nation: "",
       city: "",
       dateOfBirth: "",
-      avatarUrl: "",
+      avatarUrl: undefined,
     },
   })
 
@@ -72,7 +72,7 @@ export default function BasicInfo(props: { username: string }) {
         city: userBasicInfo.city || "",
         nation: userBasicInfo.nation || "",
         dateOfBirth: userBasicInfo.dateOfBirth || "",
-        avatarUrl: userBasicInfo.avatarUrl || "",
+        avatarUrl: userBasicInfo.avatarUrl || undefined,
       })
     }
   }, [userBasicInfo, form])
@@ -89,9 +89,8 @@ export default function BasicInfo(props: { username: string }) {
           nation: userBasicInfo.nation || "",
           city: userBasicInfo.city || "",
           dateOfBirth: userBasicInfo.dateOfBirth || "",
-          avatarUrl: userBasicInfo.avatarUrl || "",
+          avatarUrl: userBasicInfo.avatarUrl || undefined,
         })
-        // setAvatarPreview(userBasicInfo.avatarUrl || "")
       }
     }
     setIsEditing(!isEditing)
@@ -109,7 +108,6 @@ export default function BasicInfo(props: { username: string }) {
       avatarUrl: data.avatarUrl,
     })
     setIsEditing(false)
-
   }
 
 
