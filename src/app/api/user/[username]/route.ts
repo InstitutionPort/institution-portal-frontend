@@ -12,11 +12,9 @@ const mockPublicUserData = {
   joinedAt: "2023-01-01T00:00:00Z",
 }
 
-export async function GET(request: NextRequest, { params }: { params: { username: string } }) {
+export async function GET(request: NextRequest, context: any) {
   try {
-
-
-    const { username } = params
+    const { username } = context.params
     if (!username) {
       return genApiResponse({
         code: "NO_PARAMS",
