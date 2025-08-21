@@ -2,7 +2,6 @@
 "use client"
 
 import { useContext } from "react"
-import { SettingsScrollSectionContext } from "./layout"
 import BasicInfo from "./basic-info"
 import EducationalInfo from "./educational-info"
 import { SessionManagement } from "./session-management"
@@ -14,6 +13,7 @@ import { ErrorBox } from "@/components/error-box"
 import { EmailManagement } from "./email-management"
 import { PhoneManagement } from "./phone-management"
 import { ActivityTimeline } from "./activity-timeline"
+import { SettingsScrollSectionContext } from "@/context/settings-sidebar"
 
 export default function SettingsPage() {
   const { data: userData, isPending, isError, error } = checkMe()
