@@ -4,26 +4,11 @@
 import { useEffect, useRef, useState } from "react"
 import { SettingsSidebar } from "@/app/settings/settings-sidebar"
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
-import { createContext } from "react"
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
-import { Menu } from "lucide-react"
 // import { navBarHeight } from "@/components/navbar/navbar"
-import { cn } from "@/utils/basic-utils"
-import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb"
+import { SettingsScrollSectionContext } from "@/context/settings-sidebar"
 
-interface SettingsScrollSectionContextType {
-  activeSection: string
-  scrollToSection: (id: string) => void
-  sectionRefs: React.MutableRefObject<{ [key: string]: HTMLElement | null }>
-}
-
-export const SettingsScrollSectionContext = createContext<SettingsScrollSectionContextType>({
-  activeSection: "Personal Information",
-  scrollToSection: () => { },
-  sectionRefs: { current: {} },
-})
 
 
 export default function SettingsLayout({ children }: { children: React.ReactNode }) {
