@@ -10,6 +10,7 @@ type OTPSend = {
 // Send OTP
 export function useSendOtp() {
   return useMutationCustom<OTPSend>({
+    key: ["opt/send"],
     apiRoute: "/api/otp/send",
     method: "POST",
     httpOnlyCookie: true,
@@ -21,6 +22,7 @@ export function useSendOtp() {
 // Verify OTP
 export function useVerifyOtp() {
   return useMutationCustom<OtpVerificationData>({
+    key: ["opt/verify"],
     apiRoute: "/api/otp/verify",
     method: "POST",
     httpOnlyCookie: true,

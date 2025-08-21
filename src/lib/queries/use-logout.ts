@@ -8,6 +8,7 @@ export function useLogoutMutation() {
   const queryClient = useQueryClient();
   const router = useRouter();
   return useMutationCustom({
+    key: ["/api/logout"],
     apiRoute: '/api/logout',
     method: "POST",
     httpOnlyCookie: true,
