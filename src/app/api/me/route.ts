@@ -23,13 +23,13 @@ export async function GET(req: NextRequest) {
     //otp token verification
     const accessTokenPayload = checkTokenIsValid(req, "access-token", ACCESS_SECRET!)
     const refreshTokenPayload = checkTokenIsValid(req, "refresh-token", REFRESH_SECRET!)
-    if (accessTokenPayload) return successfulAuth({ user: accessTokenPayload.user as any, id:accessTokenPayload.id })
+    if (accessTokenPayload) return successfulAuth({ user: accessTokenPayload.user as any, id: accessTokenPayload.id as UUIDTypes })
     if (refreshTokenPayload) {
       //get the user's unique immutable id
       const uuid = _uuidv4();
       const user = refreshTokenPayload.user as any
       const accessCookie = genToken({ user: user, id: uuid }, "access-token", 18000, ACCESS_SECRET!);
-      const response = successfulAuth({ user: user, id: refreshTokenPayload.id })
+      const response = successfulAuth({ user: user, id: refreshTokenPayload.id as UUIDTypes })
       response.headers.append("Set-Cookie", accessCookie);
       // Optionally refresh the refresh token if it's expiring soon (within 2 days)
       const expMs = (refreshTokenPayload.exp ?? 0) * 1000;
