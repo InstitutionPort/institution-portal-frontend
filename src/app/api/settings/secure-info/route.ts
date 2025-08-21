@@ -151,7 +151,7 @@ export async function PATCH(request: NextRequest) {
       message: 'Updated successfully',
       status: 200,
     })
-    response.cookies.delete("otp-token-email-new")
+    response.cookies.delete("otp-token-email-update")
     response.cookies.delete("otp-token-email-current")
 
     return response
